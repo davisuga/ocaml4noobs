@@ -1,2 +1,4 @@
 (library
- (name crud))
+ (name crud)
+ (libraries dream lwt ppx_rapper_lwt)
+ (preprocess (pps ppx_rapper ppx_deriving_yojson)))
