@@ -1,7 +1,6 @@
 module Queries = struct
-  open User
-
   let read_all =
+    let open User in
     [%rapper
       get_many
         {sql|
@@ -21,7 +20,29 @@ module Queries = struct
           VALUES(%string{name}, %string{username}, %string{email})
         |sql}
         record_in]
+
+  let update =
+    [%rapper
+      execute
+        {sql|
+          UPDATE users
+          SET (username, email, name) = (%string?{username}, %string?{email}, %string?{name})
+          WHERE id = %int{id}
+          |sql}]
+
+  let delete =
+    [%rapper
+      execute
+        {sql|
+            Delete from users
+            WHERE id = %int{id}
+            |sql}]
 end
 
-let list_users () = Db.dispatch Queries.read_all
 let create user = Db.dispatch (Queries.create_one user)
+let read_all () = Db.dispatch Queries.read_all
+
+let update ?username ?email ?name id =
+  Db.dispatch (Queries.update ~username ~name ~email ~id)
+
+let delete id = Db.dispatch (Queries.delete ~id)
