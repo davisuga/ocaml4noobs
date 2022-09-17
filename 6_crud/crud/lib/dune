@@ -1,5 +1,12 @@
 (library
  (name crud)
- (libraries dream lwt ppx_rapper_lwt)
+ (libraries
+  dream
+  lwt
+  caqti
+  caqti-lwt
+  dotenv
+  caqti-driver-postgresql
+  ppx_rapper_lwt)
  (preprocess
   (pps ppx_rapper ppx_deriving_yojson ppx_deriving.make)))
