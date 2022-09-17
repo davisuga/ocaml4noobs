@@ -1,4 +1,5 @@
 (library
  (name crud)
  (libraries dream lwt ppx_rapper_lwt)
- (preprocess (pps ppx_rapper ppx_deriving_yojson)))
+ (preprocess
+  (pps ppx_rapper ppx_deriving_yojson ppx_deriving.make)))
